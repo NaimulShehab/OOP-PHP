@@ -1,0 +1,34 @@
+class creation:
+
+class Class_Name{
+ [properties]
+ [methods]
+ .....
+ }
+
+object creation:
+$object_name = new Class_Name()
+
+-------------------------------------------------------
+We can add the "public" keyword before properties or methods inside the class. To access them outside of the class.
+example:
+<?php 
+
+class Fruit {
+
+	//properties
+	public $name = "Fruit name";
+
+	public function getName(){
+		return "This is a fruit function";
+	}
+
+}
+<h1>Now accessing them in the object:<h1>
+//object
+$mango = new Fruit();
+
+echo $mango->name."<br>";
+
+echo $mango->getName();
+Here we use the object name, then the (->) sign, then the property (pulbic variable) or method(public function) name. 

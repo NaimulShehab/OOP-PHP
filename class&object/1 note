@@ -24,7 +24,7 @@ class Fruit {
 	}
 
 }
-<h1>Now accessing them in the object:<h1>
+Now accessing them in the object:
 //object
 $mango = new Fruit();
 

@@ -115,7 +115,124 @@ Nissan Car
 
 This project is intended for students and beginners who are learning PHP Object-Oriented Programming. It provides a simple and practical introduction to classes, objects, properties, methods, and the `$this` keyword before moving on to more advanced OOP concepts such as constructors, inheritance, interfaces, and polymorphism.
 
-This version is suitable for a GitHub repository and explains the code in a clear, beginner-friendly way.
+## Constructor in PHP — Simple Note
+
+### What is a Constructor?
+
+A **constructor** is a special method in a PHP class that is **automatically called when an object is created**.
+
+In PHP, the constructor is written as:
+
+```php
+__construct()
+```
+
+It is mainly used to **initialize the properties of an object** when the object is created.
+
+---
+
+### Constructor in Your Code
+
+```php
+public function __construct($animal_name = "Human", $animal_species = "Homosepience"){
+    $this->name = $animal_name;
+    $this->species = $animal_species;
+}
+```
+
+Here, `__construct()` receives two values:
+
+* `$animal_name` → animal's name
+* `$animal_species` → animal's species
+
+Then it stores them in the object's properties:
+
+```php
+$this->name = $animal_name;
+$this->species = $animal_species;
+```
+
+### Default Values
+
+```php
+$human = new Animal();
+```
+
+No values are provided, so the constructor uses the default values:
+
+```text
+name = Human
+species = Homosepience
+```
+
+Output:
+
+```text
+Human
+Homosepience
+```
+
+### Passing Values to Constructor
+
+```php
+$doyel_pakhi = new Animal(
+    "Oriental magpie-robin",
+    "Copsychus saularis"
+);
+```
+
+Here, values are provided when creating the object.
+
+So:
+
+```text
+name = Oriental magpie-robin
+species = Copsychus saularis
+```
+
+Output:
+
+```text
+Oriental magpie-robin
+Copsychus saularis
+```
+
+### Simple Example
+
+```php
+class Animal {
+
+    public $name;
+
+    public function __construct($name) {
+        $this->name = $name;
+    }
+}
+
+$animal = new Animal("Cat");
+
+echo $animal->name;
+```
+
+Output:
+
+```text
+Cat
+```
+
+### Remember
+
+**Constructor = Automatically runs when an object is created.**
+
+```text
+new Animal()
+     ↓
+__construct() runs automatically
+     ↓
+Properties are initialized
+```
+
+**Main purpose:** To give initial values to an object's properties.
 
 
 

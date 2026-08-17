@@ -234,5 +234,131 @@ Properties are initialized
 
 **Main purpose:** To give initial values to an object's properties.
 
+## PHP Destructor — Simple Note
+
+### What is a Destructor?
+
+A **destructor** is a special method in PHP that is **automatically called when an object is destroyed** or when the PHP script finishes.
+
+In PHP, a destructor is written as:
+
+```php
+__destruct()
+```
+
+### Why is Destructor Used?
+
+A destructor is mainly used to **perform cleanup tasks**, such as:
+
+* Closing a file
+* Closing a database connection
+* Releasing resources
+* Performing some final actions before an object is removed
+
+---
+
+## Simple Example
+
+```php
+<?php
+
+class Animal {
+
+    public $name;
+
+    // Constructor
+    public function __construct($name) {
+        $this->name = $name;
+        echo "Animal object created.<br>";
+    }
+
+    // Destructor
+    public function __destruct() {
+        echo "Animal object destroyed.<br>";
+    }
+}
+
+$animal = new Animal("Cat");
+
+echo "Animal name: " . $animal->name . "<br>";
+
+?>
+```
+
+### Output
+
+```text
+Animal object created.
+Animal name: Cat
+Animal object destroyed.
+```
+
+### How It Works
+
+When this line runs:
+
+```php
+$animal = new Animal("Cat");
+```
+
+PHP creates an object and automatically calls:
+
+```php
+__construct()
+```
+
+So:
+
+```text
+Object created
+      ↓
+Constructor runs
+```
+
+When the object is no longer needed, PHP automatically calls:
+
+```php
+__destruct()
+```
+
+So:
+
+```text
+Object destroyed
+      ↓
+Destructor runs
+```
+
+---
+
+## Constructor vs Destructor
+
+| Constructor                               | Destructor                          |
+| ----------------------------------------- | ----------------------------------- |
+| `__construct()`                           | `__destruct()`                      |
+| Runs when object is created               | Runs when object is destroyed       |
+| Used to initialize properties             | Used for cleanup                    |
+| Runs at the beginning of an object's life | Runs at the end of an object's life |
+
+### Easy Way to Remember
+
+**Constructor → Start**
+
+**Destructor → Finish**
+
+```php
+class Animal {
+
+    public function __construct() {
+        // runs when object is created
+    }
+
+    public function __destruct() {
+        // runs when object is destroyed
+    }
+}
+```
+
+**Important:** You normally don't call `__destruct()` yourself. PHP automatically calls it when the object is destroyed or when the script ends.
 
 

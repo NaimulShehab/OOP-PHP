@@ -1,0 +1,70 @@
+1. Creating a Class
+class Fruit {
+    // properties and methods
+}
+class Fruit creates a class named Fruit.
+A class is like a blueprint for creating objects.
+2. Property
+public $name = "Fruit name";
+$name is a property of the Fruit class.
+public means the property can be accessed from outside the class.
+3. $this
+return $this->name;
+$this refers to the current object.
+$this->name means the name property belonging to the current object.
+
+For example:
+
+$mango->name
+
+Here, $this->name refers to $mango's name.
+
+4. Method
+public function getName(){
+    return $this->name;
+}
+getName() is a method (function inside a class).
+It returns the current value of $name.
+5. Setting a Property Using a Method
+public function setCarName($car_name){
+    return $this->name = $car_name;
+}
+setCarName() changes the value of $name.
+$car_name is the value passed to the method.
+6. Creating an Object
+$mango = new Fruit();
+new Fruit() creates an object from the Fruit class.
+$mango stores that object.
+7. Changing a Property Directly
+$mango->name = "BMW car";
+
+This changes the name property of the $mango object.
+
+8. Changing the Property Using a Method
+$mango->setCarName("Nissan car");
+
+Now the value of $name becomes:
+
+Nissan car
+
+The previous "BMW car" value is replaced.
+
+9. Getting the Value
+echo $mango->getName();
+
+getName() returns the current value of $name, so the output is:
+
+Nissan car
+Important Concept
+
+The basic flow is:
+
+Class → Object → Property/Method
+
+Fruit (Class)
+   ↓
+$mango (Object)
+   ↓
+$name (Property)
+   ↓
+getName() / setCarName() (Methods)

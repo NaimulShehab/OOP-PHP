@@ -751,3 +751,463 @@ class Example {
 
 **In short:** Access modifiers are used to control the **visibility and accessibility** of properties and methods in PHP.
 
+
+# PHP Inheritance — Simple Note
+
+### What is Inheritance?
+
+**Inheritance** is an OOP feature that allows a **child class to use the properties and methods of a parent class**.
+
+In PHP, inheritance is created using the `extends` keyword.
+
+### Basic Syntax
+
+```php
+class Child extends Parent {
+    // child class properties and methods
+}
+```
+
+Think of it like:
+
+```text
+Parent Class
+     ↓
+ Child Class
+```
+
+The child class gets the accessible members of the parent class.
+
+---
+
+## Simple Example
+
+```php
+<?php
+
+class Animal {
+
+    public $name = "Animal";
+
+    public function eat() {
+        echo "Animal is eating";
+    }
+}
+
+class Dog extends Animal {
+
+    public function bark() {
+        echo "Dog is barking";
+    }
+}
+
+$dog = new Dog();
+
+echo $dog->name . "<br>";
+$dog->eat();
+echo "<br>";
+$dog->bark();
+
+?>
+```
+
+### Output
+
+```text
+Animal
+Animal is eating
+Dog is barking
+```
+
+### How does it work?
+
+We have a parent class:
+
+```php
+class Animal {
+```
+
+And a child class:
+
+```php
+class Dog extends Animal {
+```
+
+Because `Dog` extends `Animal`, the `Dog` object can use the accessible members of `Animal`.
+
+So this works:
+
+```php
+$dog->name;
+```
+
+Even though `$name` was declared inside `Animal`.
+
+This also works:
+
+```php
+$dog->eat();
+```
+
+because `eat()` belongs to the parent class.
+
+And `Dog` can have its own method:
+
+```php
+public function bark() {
+    echo "Dog is barking";
+}
+```
+
+---
+
+# Inheritance with Properties and Methods
+
+```php
+<?php
+
+class Animal {
+
+    public $name;
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+}
+
+class Dog extends Animal {
+
+    public function bark() {
+        return "Woof Woof";
+    }
+}
+
+$dog = new Dog();
+
+$dog->setName("Tommy");
+
+echo $dog->getName() . "<br>";
+echo $dog->bark();
+
+?>
+```
+
+### Output
+
+```text
+Tommy
+Woof Woof
+```
+
+Here:
+
+```text
+Animal
+ ├── $name
+ ├── setName()
+ └── getName()
+       ↑
+       │ inherited
+       │
+Dog
+ └── bark()
+```
+
+The `Dog` class inherits:
+
+* `$name`
+* `setName()`
+* `getName()`
+
+from `Animal`.
+
+It also has its own method:
+
+* `bark()`
+
+---
+
+# `protected` and Inheritance
+
+`protected` is especially useful with inheritance because a child class can access a parent's protected properties and methods.
+
+```php
+<?php
+
+class Animal {
+
+    protected $name = "Animal";
+}
+
+class Dog extends Animal {
+
+    public function showName() {
+        return $this->name;
+    }
+}
+
+$dog = new Dog();
+
+echo $dog->showName();
+
+?>
+```
+
+Output:
+
+```text
+Animal
+```
+
+The child class can access:
+
+```php
+$this->name
+```
+
+because `$name` is `protected`.
+
+But this would not work:
+
+```php
+echo $dog->name;
+```
+
+because `protected` members cannot be accessed directly from outside the class.
+
+---
+
+# `private` and Inheritance
+
+A `private` property or method **cannot be directly accessed by the child class**.
+
+```php
+<?php
+
+class Animal {
+
+    private $name = "Animal";
+}
+
+class Dog extends Animal {
+
+    public function showName() {
+        return $this->name;
+    }
+}
+
+$dog = new Dog();
+
+echo $dog->showName();
+
+?>
+```
+
+The child class cannot directly access the parent's private `$name`.
+
+So remember:
+
+| Access Modifier | Same Class | Child Class | Outside |
+| --------------- | ---------- | ----------- | ------- |
+| `public`        | ✅          | ✅           | ✅       |
+| `protected`     | ✅          | ✅           | ❌       |
+| `private`       | ✅          | ❌           | ❌       |
+
+---
+
+# Method Overriding
+
+A child class can **replace/redefine a parent's method**. This is called **method overriding**.
+
+```php
+<?php
+
+class Animal {
+
+    public function sound() {
+        echo "Animal makes a sound";
+    }
+}
+
+class Dog extends Animal {
+
+    public function sound() {
+        echo "Dog barks";
+    }
+}
+
+$dog = new Dog();
+
+$dog->sound();
+
+?>
+```
+
+Output:
+
+```text
+Dog barks
+```
+
+Although `Animal` has a `sound()` method, `Dog` provides its own version.
+
+---
+
+# `parent` Keyword
+
+The `parent` keyword is used to access the **parent class's property or method**.
+
+```php
+<?php
+
+class Animal {
+
+    public function sound() {
+        echo "Animal makes a sound";
+    }
+}
+
+class Dog extends Animal {
+
+    public function sound() {
+
+        parent::sound();
+
+        echo "<br>Dog barks";
+    }
+}
+
+$dog = new Dog();
+
+$dog->sound();
+
+?>
+```
+
+Output:
+
+```text
+Animal makes a sound
+Dog barks
+```
+
+Here:
+
+```php
+parent::sound();
+```
+
+calls the `sound()` method from the parent class.
+
+---
+
+# Constructor and Inheritance
+
+A child class can also have its own constructor.
+
+```php
+<?php
+
+class Animal {
+
+    public function __construct() {
+        echo "Animal constructor<br>";
+    }
+}
+
+class Dog extends Animal {
+
+    public function __construct() {
+        echo "Dog constructor<br>";
+    }
+}
+
+$dog = new Dog();
+
+?>
+```
+
+Output:
+
+```text
+Dog constructor
+```
+
+If the child has its own constructor, the parent's constructor is **not automatically called**.
+
+You can call it using:
+
+```php
+parent::__construct();
+```
+
+Example:
+
+```php
+<?php
+
+class Animal {
+
+    public function __construct() {
+        echo "Animal constructor<br>";
+    }
+}
+
+class Dog extends Animal {
+
+    public function __construct() {
+
+        parent::__construct();
+
+        echo "Dog constructor<br>";
+    }
+}
+
+$dog = new Dog();
+
+?>
+```
+
+Output:
+
+```text
+Animal constructor
+Dog constructor
+```
+
+---
+
+## Easy Way to Remember
+
+```text
+             Animal
+            /      \
+           /        \
+         Dog        Cat
+```
+
+`Animal` = **Parent class**
+
+`Dog` = **Child class**
+
+`Cat` = **Child class**
+
+Both `Dog` and `Cat` can inherit common properties and methods from `Animal`.
+
+### Key Points
+
+* **Inheritance** allows one class to acquire features of another class.
+* `extends` is used to create inheritance.
+* The original class is called the **parent/superclass**.
+* The new class is called the **child/subclass**.
+* `public` members can be inherited and accessed from outside.
+* `protected` members can be accessed by the child class.
+* `private` members cannot be directly accessed by the child class.
+* `parent::` is used to access parent class methods or constructors.
+* Redefining a parent method in a child class is called **method overriding**.
+
+

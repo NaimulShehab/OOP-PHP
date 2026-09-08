@@ -1376,6 +1376,270 @@ final public $name;
 
 `final` is mainly used with **classes and methods** to prevent unwanted inheritance or method overriding.
 
+# PHP Constants
+
+### What is a Constant?
+
+A **constant** is a value that **cannot be changed after it has been defined**.
+
+Constants are useful when you have a value that should remain the same throughout your program, such as:
+
+* Website name
+* Company name
+* Pi value
+* Tax rate
+* Database configuration values
+
+---
+
+## 1. Creating a Constant Using `define()`
+
+PHP provides the `define()` function to create constants.
+
+### Syntax
+
+```php
+define("CONSTANT_NAME", value);
+```
+
+### Example
+
+```php
+<?php
+
+define("SITE_NAME", "My Website");
+
+echo SITE_NAME;
+
+?>
+```
+
+### Output
+
+```text
+My Website
+```
+
+Notice that we **don't use `$`** before a constant:
+
+```php
+echo SITE_NAME;
+```
+
+Not:
+
+```php
+echo $SITE_NAME; // ❌
+```
+
+---
+
+## 2. Constants Cannot Be Changed
+
+Once a constant is defined, you cannot change its value.
+
+```php
+<?php
+
+define("PI", 3.1416);
+
+echo PI;
+
+?>
+```
+
+Output:
+
+```text
+3.1416
+```
+
+You should not try to assign another value to it.
+
+```php
+PI = 3.14; // ❌
+```
+
+---
+
+# 3. Using `const`
+
+PHP also allows you to create constants using the `const` keyword.
+
+```php
+<?php
+
+const SITE_NAME = "My Website";
+
+echo SITE_NAME;
+
+?>
+```
+
+Output:
+
+```text
+My Website
+```
+
+So there are two common ways:
+
+```php
+define("SITE_NAME", "My Website");
+```
+
+and
+
+```php
+const SITE_NAME = "My Website";
+```
+
+---
+
+# 4. Constant Inside a Class
+
+Constants can also be created inside a class using `const`.
+
+```php
+<?php
+
+class Student {
+
+    const COLLEGE = "Dhaka Commerce College";
+
+}
+
+echo Student::COLLEGE;
+
+?>
+```
+
+### Output
+
+```text
+Dhaka Commerce College
+```
+
+To access a class constant, we use:
+
+```php
+ClassName::CONSTANT_NAME
+```
+
+Here:
+
+```php
+Student::COLLEGE
+```
+
+`::` is called the **scope resolution operator**.
+
+---
+
+# 5. Constant with a Class Object
+
+A class constant does not need an object to be accessed.
+
+```php
+<?php
+
+class Animal {
+
+    const TYPE = "Mammal";
+}
+
+echo Animal::TYPE;
+
+?>
+```
+
+Output:
+
+```text
+Mammal
+```
+
+You don't need:
+
+```php
+$animal = new Animal();
+```
+
+to access `TYPE`.
+
+---
+
+# Constant vs Variable
+
+| Variable             | Constant                |
+| -------------------- | ----------------------- |
+| Uses `$`             | Does not use `$`        |
+| Value can be changed | Value cannot be changed |
+| Example: `$name`     | Example: `NAME`         |
+| Can be reassigned    | Cannot be reassigned    |
+
+### Example
+
+```php
+$name = "Naimul";
+
+$name = "Shehab"; // ✅ Allowed
+```
+
+But:
+
+```php
+define("NAME", "Naimul");
+
+define("NAME", "Shehab"); // ❌ Cannot redefine
+```
+
+---
+
+## Easy Way to Remember
+
+```text
+Variable
+   ↓
+Can change
+
+Constant
+   ↓
+Cannot change
+```
+
+### Simple Example
+
+```php
+<?php
+
+define("COUNTRY", "Bangladesh");
+define("LANGUAGE", "PHP");
+
+echo COUNTRY . "<br>";
+echo LANGUAGE;
+
+?>
+```
+
+Output:
+
+```text
+Bangladesh
+PHP
+```
+
+### Key Points
+
+* A **constant** stores a fixed value.
+* A constant's value **cannot be changed** after it is defined.
+* Constants normally **do not use `$`**.
+* `define()` can create constants.
+* `const` can also create constants.
+* Class constants are accessed using `ClassName::CONSTANT_NAME`.
+* Constants are useful for values that should remain unchanged.
+
+
 
 
 

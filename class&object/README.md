@@ -1210,4 +1210,134 @@ Both `Dog` and `Cat` can inherit common properties and methods from `Animal`.
 * `parent::` is used to access parent class methods or constructors.
 * Redefining a parent method in a child class is called **method overriding**.
 
+PHP final Keyword 
+
+The final keyword is used to prevent inheritance or overriding in PHP.
+
+It can be used with:
+
+Class
+Method
+1. final Class
+
+If a class is declared as final, another class cannot extend/inherit it.
+
+Example
+<?php
+
+final class Animal {
+
+    public function sound() {
+        echo "Animal makes sound";
+    }
+}
+
+// This is NOT allowed
+class Dog extends Animal {
+
+}
+
+?>
+
+This will produce an error because Animal is a final class.
+
+Simple idea
+final class Animal
+        ↓
+Cannot be inherited
+
+So:
+
+class Dog extends Animal
+
+❌ Not allowed.
+
+2. final Method
+
+A final method can be inherited, but it cannot be overridden by a child class.
+
+Example
+<?php
+
+class Animal {
+
+    final public function sound() {
+        echo "Animal makes sound";
+    }
+}
+
+class Dog extends Animal {
+
+    // NOT allowed
+    public function sound() {
+        echo "Dog barks";
+    }
+}
+
+?>
+
+This will produce an error because the sound() method is declared as final in the parent class.
+
+Simple idea
+Animal
+  |
+  |-- final sound()
+  ↓
+Dog
+  |
+  └── Cannot change sound()
+
+The child class can use the method:
+
+<?php
+
+class Animal {
+
+    final public function sound() {
+        echo "Animal makes sound";
+    }
+}
+
+class Dog extends Animal {
+}
+
+$dog = new Dog();
+
+$dog->sound();
+
+?>
+
+Output:
+
+Animal makes sound
+
+So, final does not stop inheritance of the method. It only stops the child from overriding it.
+
+final Class vs final Method
+final	Meaning
+final class	Class cannot be inherited
+final method	Method cannot be overridden
+Remember
+final class
+    ↓
+NO inheritance
+
+
+final method
+    ↓
+Inheritance allowed
+    ↓
+But NO overriding
+Important Point
+
+A final keyword is not normally used with properties in PHP.
+
+For example:
+
+final public $name;
+
+❌ This is not valid PHP syntax for a property.
+
+final is mainly used with classes and methods to prevent unwanted inheritance or method overriding.
+
 

@@ -1639,6 +1639,300 @@ PHP
 * Class constants are accessed using `ClassName::CONSTANT_NAME`.
 * Constants are useful for values that should remain unchanged.
 
+# PHP Abstract Class
+
+### What is an Abstract Class?
+
+An **abstract class** is a class that is used as a **base/parent class** for other classes.
+
+An abstract class **cannot be used to create an object directly**.
+
+In PHP, we use the `abstract` keyword to create an abstract class.
+
+```php
+abstract class Animal {
+    // properties and methods
+}
+```
+
+---
+
+## 1. Simple Abstract Class Example
+
+```php
+<?php
+
+abstract class Animal {
+
+    public function eat() {
+        echo "Animal is eating";
+    }
+}
+
+class Dog extends Animal {
+
+}
+
+$dog = new Dog();
+
+$dog->eat();
+
+?>
+```
+
+### Output
+
+```text
+Animal is eating
+```
+
+Here:
+
+```php
+abstract class Animal
+```
+
+is the **abstract class**.
+
+```php
+class Dog extends Animal
+```
+
+means `Dog` inherits from `Animal`.
+
+The `Dog` object can use the `eat()` method.
+
+---
+
+## 2. Cannot Create Object of Abstract Class
+
+You **cannot** do this:
+
+```php
+$animal = new Animal();
+```
+
+❌ This will produce an error because `Animal` is an abstract class.
+
+Instead, create an object of a child class:
+
+```php
+$dog = new Dog();
+```
+
+✅
+
+---
+
+# Abstract Method
+
+An abstract class can contain an **abstract method**.
+
+An abstract method is a method that has **only a declaration and no body**.
+
+### Example
+
+```php
+<?php
+
+abstract class Animal {
+
+    abstract public function sound();
+}
+
+class Dog extends Animal {
+
+    public function sound() {
+        echo "Dog barks";
+    }
+}
+
+$dog = new Dog();
+
+$dog->sound();
+
+?>
+```
+
+### Output
+
+```text
+Dog barks
+```
+
+Here:
+
+```php
+abstract public function sound();
+```
+
+says that every child class **must provide its own implementation** of `sound()`.
+
+The `Dog` class does this:
+
+```php
+public function sound() {
+    echo "Dog barks";
+}
+```
+
+---
+
+# Another Example
+
+```php
+<?php
+
+abstract class Animal {
+
+    abstract public function sound();
+
+    public function eat() {
+        echo "Animal is eating<br>";
+    }
+}
+
+class Dog extends Animal {
+
+    public function sound() {
+        echo "Dog barks<br>";
+    }
+}
+
+class Cat extends Animal {
+
+    public function sound() {
+        echo "Cat meows<br>";
+    }
+}
+
+$dog = new Dog();
+$cat = new Cat();
+
+$dog->sound();
+$dog->eat();
+
+$cat->sound();
+$cat->eat();
+
+?>
+```
+
+### Output
+
+```text
+Dog barks
+Animal is eating
+Cat meows
+Animal is eating
+```
+
+Here, `Animal` provides a common structure:
+
+```text
+             Animal
+          (Abstract Class)
+             /    \
+            /      \
+          Dog      Cat
+           ↓        ↓
+        barks     meows
+```
+
+Both `Dog` and `Cat` **must implement** the `sound()` method.
+
+---
+
+## Abstract Class Can Have Normal Methods
+
+An abstract class can contain:
+
+### Normal method
+
+```php
+public function eat() {
+    echo "Eating";
+}
+```
+
+### Abstract method
+
+```php
+abstract public function sound();
+```
+
+So an abstract class can contain **both normal and abstract methods**.
+
+---
+
+## Important Rules
+
+### Rule 1: Cannot create an object
+
+```php
+$animal = new Animal();
+```
+
+❌ Not allowed.
+
+### Rule 2: Child class must implement abstract methods
+
+```php
+abstract public function sound();
+```
+
+If `Dog` extends `Animal`, `Dog` must implement `sound()`.
+
+### Rule 3: Abstract class is mainly used as a base class
+
+```php
+abstract class Animal
+```
+
+↓
+
+```php
+class Dog extends Animal
+```
+
+↓
+
+```php
+$dog = new Dog();
+```
+
+---
+
+# Abstract Class vs Normal Class
+
+| Normal Class              | Abstract Class                 |
+| ------------------------- | ------------------------------ |
+| Can create objects        | ❌ Cannot create objects        |
+| Can be inherited          | ✅ Yes                          |
+| Can have normal methods   | ✅ Yes                          |
+| Can have abstract methods | ❌ No                           |
+| Used directly             | Can be used as a base/template |
+
+---
+
+## Easy Way to Remember
+
+Think of an abstract class as a **blueprint/template**.
+
+```text
+Abstract Class
+      ↓
+Defines what child classes should have
+      ↓
+Child Classes
+      ↓
+Provide the actual implementation
+```
+
+### One-line Definition
+
+> **An abstract class is a class that cannot be instantiated directly and is designed to be inherited by child classes; it can contain abstract methods that child classes must implement.**
+
 
 
 

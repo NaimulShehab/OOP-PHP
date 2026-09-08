@@ -1,4 +1,4 @@
-# PHP Object-Oriented Programming (OOP) – Car Class Example
+# PHP Object-Oriented Programming (OOP)
 
 ## Overview
 
